@@ -4,9 +4,21 @@ import pytest
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from dotenv import load_dotenv
+import os
+
 
 def path(file_name):
     return str(Path(__file__).parent.joinpath(f'resources/{file_name}'))
+
+
+@pytest.fixture(scope="session", autouse=True)
+def load_env():
+    load_dotenv()
+
+
+selenoid_login = os.getenv("SELENOID_LOGIN")
+selenoid_pass = os.getenv("SELENOID_PASS")
 
 
 @pytest.fixture(scope='function', autouse=True)
